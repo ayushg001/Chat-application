@@ -5,6 +5,11 @@
 
 import { io } from 'socket.io-client';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 
+  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://chat-application-backend-bnoc.onrender.com');
+
 let socket = null;
 
 export function initSocket(username) {
@@ -17,8 +22,8 @@ export function initSocket(username) {
     return socket;
   }
 
-  // Connect through Vite proxy to http://localhost:5000
-  socket = io(window.location.origin, {
+  // Connect to the backend server (Render in production, localhost in development)
+  socket = io(BACKEND_URL, {
     transports: ['websocket', 'polling'],
     reconnection: true,
     reconnectionAttempts: 10,

@@ -3,7 +3,12 @@
  * Handles communication with backend REST endpoints.
  */
 
-const API_BASE = '/api';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 
+  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://chat-application-backend-bnoc.onrender.com');
+
+const API_BASE = `${BACKEND_URL}/api`;
 
 /**
  * Fetch chat history from the backend REST API
@@ -15,7 +20,7 @@ export async function fetchMessages(limit = 100) {
       throw new Error(`Failed to fetch messages: ${res.statusText}`);
     }
     const json = await res.json();
-    return json.data || [];
+    return json.data || json || [];
   } catch (err) {
     console.error('[API] Error in fetchMessages:', err);
     throw err;
@@ -41,7 +46,7 @@ export async function sendMessageApi({ sender, text }) {
     }
 
     const json = await res.json();
-    return json.data;
+    return json.data || json;
   } catch (err) {
     console.error('[API] Error in sendMessageApi:', err);
     throw err;
