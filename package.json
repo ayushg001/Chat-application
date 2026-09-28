@@ -1,0 +1,20 @@
+{
+  "name": "vedaz-chat-application",
+  "version": "1.0.0",
+  "description": "Real-time Chat Application with React, Node.js, Express, Socket.io, and MongoDB/SQLite",
+  "scripts": {
+    "server": "npm --prefix backend run dev",
+    "client": "npm --prefix frontend run dev",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install"
+  },
+  "keywords": [
+    "chat",
+    "socket.io",
+    "react",
+    "express",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "Ayush",
+  "license": "MIT"
+}
